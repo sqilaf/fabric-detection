@@ -9,13 +9,12 @@ import base64
 # --- 1. SETUP PAGE ---
 st.set_page_config(page_title="AI Fabric Studio", page_icon="✨", layout="centered")
 
-# --- 2. FUNCTION UNTUK BACKGROUND IMAGE ---
+# --- 2. FUNCTION IMAGE BACKGROUND ---
 def get_base64_of_bin_file(bin_file):
     with open(bin_file, 'rb') as f:
         data = f.read()
     return base64.b64encode(data).decode()
 
-# Cuba load gambar background, kalau tak jumpa guna warna plain je
 try:
     img_base64 = get_base64_of_bin_file("background.jpg")
     background_style = f"""
@@ -27,7 +26,7 @@ try:
             background-repeat: no-repeat;
             background-attachment: fixed;
         }}
-        /* Tambah overlay gelap sikit supaya tulisan nampak */
+        /* Overlay gelap nipis 30% supaya background tak ganggu text */
         .stApp::before {{
             content: "";
             position: absolute;
@@ -35,91 +34,122 @@ try:
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(255, 255, 255, 0.2); /* Layer putih nipis */
-            backdrop-filter: blur(3px); /* Blur sikit background image tu */
+            background-color: rgba(0, 0, 0, 0.3); 
             z-index: -1;
         }}
         </style>
     """
     st.markdown(background_style, unsafe_allow_html=True)
 except:
-    st.warning("⚠️ Sila upload gambar 'background.jpg' ke dalam GitHub anda untuk lihat background.")
+    st.warning("⚠️ Background image tak jumpa. Pastikan nama fail 'background.jpg'.")
 
-# --- 3. CSS TEMA "EARTH TONE" (PALETTE AWAK) ---
+# --- 3. CSS "MEDIA STUDENT" THEME (THE AESTHETIC FIX) ---
 st.markdown("""
     <style>
-    /* KOTAK UTAMA (GLASSMORPHISM - WARNA KRIM) */
+    /* IMPORT GOOGLE FONTS (Playfair Display untuk Tajuk, Poppins untuk text) */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap');
+
+    /* KOTAK UTAMA (Kaca Krim) */
     .main .block-container {
-        background: rgba(241, 238, 220, 0.9); /* Warna Krim dari Palette (#F1EEDC) */
-        backdrop-filter: blur(10px); /* Blur kuat untuk kotak ni */
-        border-radius: 20px;
+        background: rgba(241, 238, 220, 0.95); /* #F1EEDC pekat sikit */
+        border-radius: 25px;
         padding: 2rem 3rem;
-        box-shadow: 0 10px 30px rgba(44, 95, 45, 0.3); /* Bayang hijau gelap */
-        border: 2px solid #977F48; /* Border warna Coklat Gold */
+        box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        border: 2px solid #977F48;
     }
 
-    /* TAJUK (WARNA HIJAU GELAP) */
+    /* 1. TAJUK (Font Baru & Hijau Gelap) */
     h1 {
-        font-family: 'Helvetica Neue', sans-serif;
-        color: #2C5F2D !important; /* Warna Hijau Gelap Palette */
-        font-weight: 900 !important; /* BOLD KUAT */
+        font-family: 'Playfair Display', serif; /* Font Fashion */
+        color: #1A3300 !important; /* Hijau Gelap Sangat (#1A3300) */
+        font-weight: 800 !important;
         text-transform: uppercase;
         text-align: center;
-        text-shadow: 2px 2px 0px #FFFFFF; /* Stroke putih supaya timbul */
-        margin-bottom: 10px;
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+        text-shadow: 1px 1px 0px #fff;
     }
     
-    /* SUB-TAJUK */
-    p {
+    /* 2. SUBTITLE DALAM SHAPE (Bubble) */
+    .subtitle-box {
+        background-color: #1A3300; /* Background Hijau Gelap */
+        color: #F1EEDC; /* Tulisan Krim */
+        padding: 10px 25px;
+        border-radius: 50px; /* Curve Shape */
+        font-family: 'Poppins', sans-serif;
         text-align: center;
-        color: #588157; /* Warna Hijau Sage */
-        font-weight: 600;
-        font-size: 1.1rem;
+        font-size: 0.9rem;
+        display: inline-block;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        margin-bottom: 25px;
+    }
+    .center-box {
+        text-align: center; /* Untuk letak bubble kat tengah */
     }
 
-    /* TABS DESIGN */
+    /* 3. TABS (Dark Brown & Putih) */
     .stTabs [data-baseweb="tab-list"] {
         gap: 10px;
-        background-color: transparent;
-        border-bottom: 2px solid #977F48; /* Garis Coklat */
+        border-bottom: 0px;
     }
     .stTabs [data-baseweb="tab"] {
-        background-color: #FFFFFF;
+        background-color: #E0D8B0; /* Warna tab tak aktif */
         border-radius: 10px 10px 0px 0px;
-        color: #2C5F2D; /* Tulisan Hijau */
-        font-weight: bold;
+        color: #5C4033;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        border: none;
     }
     .stTabs [aria-selected="true"] {
-        background-color: #977F48 !important; /* Tab Aktif jadi Coklat Gold */
-        color: white !important;
+        background-color: #3E2723 !important; /* DARK BROWN PEKAT */
+        color: #FFFFFF !important; /* TULISAN PUTIH */
+        border-radius: 10px 10px 0px 0px;
     }
 
-    /* BUTTON UPLOAD & KAMERA */
-    .stFileUploader, div[data-testid="stCameraInput"] {
-        border: 2px dashed #2C5F2D; /* Border Hijau Putus-putus */
+    /* 4. FILE UPLOADER (Fix Warna Drag & Drop + Tulisan Fail) */
+    [data-testid="stFileUploader"] {
+        background-color: rgba(255, 255, 255, 0.6);
         border-radius: 15px;
-        padding: 10px;
-        background-color: rgba(255,255,255,0.7);
+        padding: 20px;
+        border: 2px dashed #3E2723; /* Border Dark Brown */
     }
-    
-    /* HILANGKAN MENU STREAMLIT */
+    /* Warna butang 'Browse files' */
+    button[data-testid="baseButton-secondary"] {
+        background-color: #3E2723; /* Dark Brown */
+        color: white;
+        border: none;
+    }
+    /* Warna text file yang diupload (BAJU COTTON.jpg) */
+    [data-testid="stFileUploader"] section {
+        background-color: #FFFFFF; /* Background putih untuk list file */
+        border-radius: 10px;
+        padding: 10px;
+        color: #000000 !important; /* Paksa tulisan jadi hitam */
+    }
+    /* Kecilkan tulisan upload limit tu */
+    small {
+        color: #3E2723 !important;
+        font-weight: bold;
+    }
+
+    /* BUANG HEADER/FOOTER */
     header {visibility: hidden;}
     footer {visibility: hidden;}
     
-    /* ALERT BOX (RESULT) */
-    .stAlert {
-        background-color: #2C5F2D;
-        color: white;
-        border-radius: 15px;
-    }
     </style>
     """, unsafe_allow_html=True)
 
-# --- 4. HEADER BARU (BOLD & EMOJI) ---
-st.markdown("<h1>🧵 AI FABRIC DETECTION STUDIO 🧵</h1>", unsafe_allow_html=True)
-st.markdown("<p>Kenali jenis fabrik anda: Cotton, Denim, Silk, atau Polyester.</p>", unsafe_allow_html=True)
+# --- 4. HEADER CUSTOM (DENGAN SHAPE SUBTITLE) ---
+st.markdown("<h1>🧵 AI Fabric Studio</h1>", unsafe_allow_html=True)
+st.markdown("""
+    <div class="center-box">
+        <div class="subtitle-box">
+            Kenali jenis fabrik anda: Cotton, Denim, Silk, atau Polyester ✨
+        </div>
+    </div>
+""", unsafe_allow_html=True)
 
-# --- 5. LOGIC AI (SAMA MACAM SEBELUM NI) ---
+# --- 5. LOGIC AI ---
 @st.cache_resource
 def load_my_model():
     class CustomDepthwiseConv2D(tf.keras.layers.DepthwiseConv2D):
@@ -141,7 +171,7 @@ tab1, tab2 = st.tabs(["📁 Upload Gambar", "📸 Guna Kamera"])
 image_source = None
 
 with tab1:
-    uploaded_file = st.file_uploader("Upload fail gambar (JPG/PNG)", type=["jpg", "png", "jpeg"], key="upload")
+    uploaded_file = st.file_uploader("Sila upload gambar kain (JPG/PNG)", type=["jpg", "png", "jpeg"], key="upload")
     if uploaded_file is not None:
         image_source = uploaded_file
 
@@ -157,7 +187,7 @@ if image_source is not None:
     st.markdown("---")
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        st.image(image, caption="Gambar Fabrik Anda", use_container_width=True)
+        st.image(image, caption="Analisis sedang dijalankan...", use_container_width=True)
 
     size = (224, 224)
     image = ImageOps.fit(image, size, Image.Resampling.LANCZOS)
@@ -170,11 +200,53 @@ if image_source is not None:
     index = np.argmax(prediction)
     class_name = class_names[index]
     confidence_score = prediction[0][index]
+    
+    # --- 6. LOGIC WARNA RESULT (DYNAMIC COLOR) ---
+    percentage = confidence_score * 100
+    
+    # Tentukan warna ikut peratusan
+    if percentage >= 80:
+        box_color = "#1A3300" # Hijau Gelap (Match Tajuk)
+        border_color = "#32CD32"
+        status_text = "SANGAT YAKIN"
+    elif percentage >= 50:
+        box_color = "#CC9900" # Kuning/Gold Gelap (Supaya tulisan putih nampak)
+        border_color = "#FFD700"
+        status_text = "AGAK YAKIN"
+    else:
+        box_color = "#8B0000" # Merah Gelap
+        border_color = "#FF0000"
+        status_text = "KURANG PASTI"
 
-    # Custom Result Box ikut tema
+    # Custom Result Box dengan Dynamic Color
     st.markdown(f"""
-        <div style="background-color: #2C5F2D; padding: 20px; border-radius: 15px; text-align: center; color: white; margin-top: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">
-            <h2 style="margin:0; color: white;">✨ {class_name[2:].strip().upper()} ✨</h2>
-            <p style="margin:0; color: #F1EEDC; font-size: 1rem;">Keyakinan AI: {confidence_score*100:.2f}%</p>
+        <style>
+        .result-card {{
+            background-color: {box_color};
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+            border: 2px solid {border_color};
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            animation: fadeIn 1s;
+        }}
+        @keyframes fadeIn {{
+            from {{opacity: 0; transform: translateY(20px);}}
+            to {{opacity: 1; transform: translateY(0);}}
+        }}
+        </style>
+        
+        <div class="result-card">
+            <p style="margin:0; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.8;">{status_text}</p>
+            <h2 style="margin: 10px 0; font-family: 'Playfair Display', serif; font-size: 2.5rem;">
+                ✨ {class_name[2:].strip().upper()} ✨
+            </h2>
+            <div style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 15px; display: inline-block;">
+                <p style="margin:0; font-weight: bold; font-family: 'Poppins', sans-serif;">
+                    Score: {percentage:.2f}%
+                </p>
+            </div>
         </div>
     """, unsafe_allow_html=True)
