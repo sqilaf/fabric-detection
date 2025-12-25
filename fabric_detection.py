@@ -5,9 +5,49 @@ import numpy as np
 import tensorflow as tf
 from keras.utils import custom_object_scope
 
+# --- BAHAGIAN MAKEOVER (CSS STYLE) ---
+st.markdown("""
+    <style>
+    /* Tukar warna background utama jadi sedikit kelabu cerah supaya tak sakit mata */
+    .stApp {
+        background-color: #F0F2F6;
+    }
+
+    /* Buat kotak container putih untuk konten utama supaya nampak timbul */
+    .main .block-container {
+        background-color: #FFFFFF;
+        padding: 3rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Design Header Banner yang lawa */
+    .header-banner {
+        background: linear-gradient(90deg, #FF4B2B 0%, #FF416C 100%); /* Warna Gradient Merah-Pink */
+        padding: 20px;
+        border-radius: 15px;
+        color: white;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    h1 {
+        color: white !important; /* Paksa tajuk jadi putih */
+        font-family: 'Helvetica', sans-serif;
+    }
+    </style>
+
+    <div class="header-banner">
+        <h1>✨ AI Fashion Scanner ✨</h1>
+        <p>Kenali jenis fabrik anda dalam saat!</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+# --- (Sambung kod asal awak di bawah ini...) ---
+# st.set_page_config(...)  <-- Pastikan kod asal awak bermula lepas blok di atas ni
 # --- SETUP PAGE BIAR LAWA ---
+
 st.set_page_config(page_title="AI Pengesan Kain", page_icon="👕")
-st.title("👕 AI Pengesan Jenis Kain")
+#---st.title("👕 AI Pengesan Jenis Kain")--
 st.write("Upload gambar baju, dan AI akan teka jenis kainnya!")
 
 # --- FUNCTION LOAD MODEL (CACHE SUPAYA LAJU) ---
