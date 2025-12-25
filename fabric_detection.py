@@ -26,7 +26,6 @@ try:
             background-repeat: no-repeat;
             background-attachment: fixed;
         }}
-        /* Overlay Gelap sikit (Black with opacity) supaya text pop-up */
         .stApp::before {{
             content: "";
             position: absolute;
@@ -47,44 +46,35 @@ except:
 st.markdown("""
     <style>
     /* IMPORT FONTS */
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@400;600;800&display=swap');
 
-    /* PALETTE VARIABLES (RUJUKAN)
-       BROWN #362706
-       BEIGE #FDE8CD
-       GREEN #043915
-       ORANGE #F4991A
-       WHITE #F9F5F0
-       BLACK #000000
-       RED #CF0F0F
-    */
-
-    /* MAIN CONTAINER (BEIGE BACKGROUND) */
+    /* MAIN CONTAINER */
     .main .block-container {
-        background: rgba(253, 232, 205, 0.95); /* #FDE8CD (Beige) */
+        background: rgba(253, 232, 205, 0.95); /* BEIGE */
         border-radius: 20px;
         padding: 3rem;
         box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-        border: 3px solid #362706; /* #362706 (Brown) */
+        border: 3px solid #362706; /* BROWN */
     }
 
-    /* 1. TITLE (FONT SAMA MACAM RESULT - PLAYFAIR DISPLAY) */
+    /* 1. TITLE (FIXED: SAMA SEBIJI DENGAN FONT RESULT) */
     h1 {
-        font-family: 'Playfair Display', serif; 
-        color: #043915 !important; /* #043915 (Green) */
-        font-weight: 900 !important;
+        font-family: 'Playfair Display', serif !important; 
+        color: #043915 !important; /* GREEN */
+        font-weight: 700 !important; /* SAMA WEIGHT DENGAN RESULT */
         text-transform: uppercase;
         text-align: center;
-        letter-spacing: 1px;
-        font-size: 2.5rem !important;
-        text-shadow: 1px 1px 0px #F9F5F0;
+        letter-spacing: 2px;
+        font-size: 3rem !important; /* BESAR */
+        text-shadow: 2px 2px 0px #F9F5F0;
         margin-bottom: 15px;
+        font-style: italic; /* SIKIT ITALIC BIAR CLASSY */
     }
     
     /* 2. SUBTITLE BUBBLE */
     .subtitle-box {
-        background-color: #043915; /* #043915 (Green) */
-        color: #F9F5F0; /* #F9F5F0 (White) */
+        background-color: #043915; 
+        color: #F9F5F0; 
         padding: 10px 30px;
         border-radius: 50px;
         font-family: 'Poppins', sans-serif;
@@ -103,36 +93,33 @@ st.markdown("""
         border-bottom: 0px;
     }
     .stTabs [data-baseweb="tab"] {
-        background-color: #F9F5F0; /* #F9F5F0 (White) */
+        background-color: #F9F5F0;
         border-radius: 8px 8px 0px 0px;
-        color: #362706; /* #362706 (Brown) */
+        color: #362706;
         font-family: 'Poppins', sans-serif;
         font-weight: 600;
         border: 1px solid #362706;
     }
     .stTabs [aria-selected="true"] {
-        background-color: #362706 !important; /* #362706 (Brown) */
-        color: #F9F5F0 !important; /* White Text */
+        background-color: #362706 !important;
+        color: #F9F5F0 !important;
     }
 
-    /* 4. FILE UPLOADER (BETULKAN SUPAYA JELAS) */
+    /* 4. FILE UPLOADER */
     [data-testid="stFileUploader"] {
-        background-color: #F9F5F0; /* #F9F5F0 (White) - Background Terang */
+        background-color: #F9F5F0;
         border-radius: 15px;
         padding: 20px;
-        border: 2px dashed #362706; /* #362706 (Brown) - Border Gelap */
+        border: 2px dashed #362706;
     }
-    /* Warna Text dalam Uploader "Drag and drop..." */
     [data-testid="stFileUploader"] div {
-        color: #000000 !important; /* #000000 (Black) */
+        color: #000000 !important;
     }
-    /* Butang 'Browse files' */
     button[data-testid="baseButton-secondary"] {
-        background-color: #362706; /* Brown */
-        color: #F9F5F0; /* White */
+        background-color: #362706;
+        color: #F9F5F0;
         border: none;
     }
-    /* Fail yang dah upload */
     [data-testid="stFileUploader"] section {
         background-color: #FFFFFF;
         border: 1px solid #ddd;
@@ -150,6 +137,19 @@ st.markdown("""
         color: white !important;
     }
 
+    /* FOOTER CREDIT STYLE */
+    .footer {
+        text-align: center;
+        margin-top: 50px;
+        font-family: 'Poppins', sans-serif;
+        color: #362706;
+        font-size: 0.85rem;
+        font-weight: 800; /* EXTRA BOLD */
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        opacity: 0.8;
+    }
+
     /* HIDE STREAMLIT BRANDING */
     header {visibility: hidden;}
     footer {visibility: hidden;}
@@ -157,7 +157,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- 4. HEADER & SUBTITLE (ENGLISH) ---
+# --- 4. HEADER & SUBTITLE ---
 st.markdown("<h1>🧵 AI FABRIC DETECTION STUDIO 🧵</h1>", unsafe_allow_html=True)
 st.markdown("""
     <div class="center-box">
@@ -184,7 +184,7 @@ try:
 except Exception as e:
     st.error(f"Error loading model: {e}")
 
-# --- 6. TABS (ENGLISH) ---
+# --- 6. TABS ---
 tab1, tab2 = st.tabs(["📁 Upload Image", "📸 Use Camera"])
 image_source = None
 
@@ -219,19 +219,19 @@ if image_source is not None:
     class_name = class_names[index]
     confidence_score = prediction[0][index]
     
-    # --- DYNAMIC COLOR LOGIC (YOUR PALETTE) ---
+    # --- DYNAMIC COLOR LOGIC ---
     percentage = confidence_score * 100
     
     if percentage >= 80:
-        box_color = "#043915" # GREEN (High Conf)
+        box_color = "#043915" # GREEN
         border_color = "#043915"
         status_text = "HIGH CONFIDENCE"
     elif percentage >= 50:
-        box_color = "#F4991A" # ORANGE (Medium Conf)
+        box_color = "#F4991A" # ORANGE
         border_color = "#362706"
         status_text = "MEDIUM CONFIDENCE"
     else:
-        box_color = "#CF0F0F" # RED (Low Conf)
+        box_color = "#CF0F0F" # RED
         border_color = "#CF0F0F"
         status_text = "LOW CONFIDENCE"
 
@@ -243,7 +243,7 @@ if image_source is not None:
             padding: 30px;
             border-radius: 20px;
             text-align: center;
-            color: #F9F5F0; /* WHITE Text */
+            color: #F9F5F0;
             margin-top: 20px;
             border: 3px solid {border_color};
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
@@ -267,3 +267,10 @@ if image_source is not None:
             </div>
         </div>
     """, unsafe_allow_html=True)
+
+# --- 8. FOOTER CREDIT (REQUESTED) ---
+st.markdown("""
+    <div class="footer">
+        THIS WEBSITE CREATED BY AQILAH, AINA, AINUR, SYASYA
+    </div>
+""", unsafe_allow_html=True)
