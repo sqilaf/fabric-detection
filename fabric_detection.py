@@ -42,11 +42,11 @@ try:
 except:
     st.warning("⚠️ Background image not found. Please ensure 'background.jpg' is in GitHub.")
 
-# --- 3. CSS LUXURY THEME (CINZEL FONT + BEIGE OUTLINE) ---
+# --- 3. CSS LUXURY THEME (BACK TO VARSITY FONT + HEAVY STROKE) ---
 st.markdown("""
     <style>
-    /* IMPORT FONTS */
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Poppins:wght@400;600;800&display=swap');
+    /* IMPORT FONTS: Balik pada 'Graduate' (Ala Freshman) & Poppins */
+    @import url('https://fonts.googleapis.com/css2?family=Graduate&family=Poppins:wght@400;600;800&display=swap');
 
     /* MAIN CONTAINER */
     .main .block-container {
@@ -57,20 +57,20 @@ st.markdown("""
         border: 3px solid #362706; /* BROWN */
     }
 
-    /* 1. TITLE (FIXED: SEBARIS + BEIGE OUTLINE) */
+    /* 1. TITLE (FONT GRADUATE DENGAN OUTLINE TEBAL BIAR NAMPAK BOLD) */
     h1 {
-        font-family: 'Cinzel Decorative', serif !important; 
+        font-family: 'Graduate', serif !important; 
         color: #043915 !important; /* Warna isi: GREEN */
-        font-weight: 900 !important; 
+        font-weight: 900 !important; /* Paling tebal */
         text-transform: uppercase;
         text-align: center;
-        letter-spacing: 1px;
-        font-size: 2.5rem !important; /* Kecilkan sikit biar muat sebaris */
+        letter-spacing: 3px; /* Jarakkan sikit sebab outline tebal */
+        font-size: 3rem !important;
         margin-bottom: 15px;
-        /* INI CODING UNTUK OUTLINE BEIGE */
-        -webkit-text-stroke: 1.5px #FDE8CD; 
-        text-shadow: none; /* Pastikan tiada shadow lain ganggu */
-        white-space: nowrap; /* Paksa duduk sebaris */
+        /* RAHSIA BOLD: Tambah outline tebal warna Brown */
+        -webkit-text-stroke: 2px #362706; 
+        text-shadow: none;
+        white-space: nowrap; 
     }
     
     /* 2. SUBTITLE BUBBLE (HIJAU) */
@@ -139,21 +139,21 @@ st.markdown("""
         color: white !important;
     }
 
-    /* 5. NEW FOOTER BUBBLE STYLE (BEIGE BUBBLE + BROWN TEXT) */
+    /* 5. FOOTER BUBBLE (Guna font Graduate juga biar sekata) */
     .footer-box {
         background-color: #FDE8CD; /* BEIGE background */
         color: #362706; /* DARK BROWN text */
         padding: 10px 40px;
         border-radius: 50px; /* Curve shape */
-        font-family: 'Cinzel Decorative', serif;
+        font-family: 'Graduate', serif; /* FONT VARSITY */
         text-align: center;
         font-size: 0.85rem;
-        font-weight: 700;
-        letter-spacing: 1px;
+        font-weight: 900;
+        letter-spacing: 2px;
         text-transform: uppercase;
         display: inline-block;
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        border: 2px solid #362706; /* Tambah border brown sikit biar kemas */
+        border: 2px solid #362706;
     }
 
     /* HIDE STREAMLIT BRANDING */
@@ -263,7 +263,7 @@ if image_source is not None:
         
         <div class="result-card">
             <p style="margin:0; font-family: 'Poppins', sans-serif; font-size: 0.9rem; letter-spacing: 2px; opacity: 0.9;">{status_text}</p>
-            <h2 style="margin: 10px 0; font-family: 'Cinzel Decorative', serif; font-size: 3rem; font-weight: 700;">
+            <h2 style="margin: 10px 0; font-family: 'Graduate', serif; font-size: 3rem; font-weight: 900; letter-spacing: 3px;">
                 ✨ {class_name[2:].strip().upper()} ✨
             </h2>
             <div style="background: rgba(249, 245, 240, 0.2); padding: 5px 20px; border-radius: 15px; display: inline-block;">
@@ -274,7 +274,7 @@ if image_source is not None:
         </div>
     """, unsafe_allow_html=True)
 
-# --- 8. FOOTER CREDIT (NEW BEIGE BUBBLE) ---
+# --- 8. FOOTER CREDIT (BEIGE BUBBLE) ---
 st.markdown("""
     <div class="center-box" style="margin-top: 50px; margin-bottom: 30px;">
         <div class="footer-box">
