@@ -42,11 +42,11 @@ try:
 except:
     st.warning("⚠️ Background image not found. Please ensure 'background.jpg' is in GitHub.")
 
-# --- 3. CSS LUXURY THEME (VARSITY FONT EDITION) ---
+# --- 3. CSS LUXURY THEME (CINZEL DECORATIVE FONT) ---
 st.markdown("""
     <style>
-    /* IMPORT FONTS: Tambah font 'Graduate' (Ala-ala Freshman) */
-    @import url('https://fonts.googleapis.com/css2?family=Graduate&family=Poppins:wght@400;600;800&display=swap');
+    /* IMPORT FONTS: Tukar kepada Cinzel Decorative (Classy luxury look) */
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Poppins:wght@400;600;800&display=swap');
 
     /* MAIN CONTAINER */
     .main .block-container {
@@ -57,17 +57,17 @@ st.markdown("""
         border: 3px solid #362706; /* BROWN */
     }
 
-    /* 1. TITLE (FONT 'GRADUATE' - RUPA VARSITY/COLLEGE) */
+    /* 1. TITLE (FONT CINZEL DECORATIVE - BOLD & CLEAN) */
     h1 {
-        font-family: 'Graduate', serif !important; 
+        font-family: 'Cinzel Decorative', serif !important; 
         color: #043915 !important; /* GREEN */
-        font-weight: 400 !important; 
+        font-weight: 900 !important; /* EXTRA BOLD */
         text-transform: uppercase;
         text-align: center;
-        letter-spacing: 4px; /* Jarak huruf jauh sikit baru nampak gah */
-        font-size: 3.5rem !important; /* Saiz Besar */
-        text-shadow: 3px 3px 0px #F9F5F0; /* Shadow tebal */
+        letter-spacing: 2px;
+        font-size: 3.2rem !important; /* Saiz Besar */
         margin-bottom: 15px;
+        /* text-shadow DIBUANG seperti diminta supaya nampak clean */
     }
     
     /* 2. SUBTITLE BUBBLE */
@@ -136,14 +136,15 @@ st.markdown("""
         color: white !important;
     }
 
-    /* FOOTER CREDIT STYLE (Guna font Varsity juga biar matching) */
+    /* FOOTER CREDIT STYLE (Guna font Cinzel juga biar matching) */
     .footer {
         text-align: center;
         margin-top: 50px;
-        font-family: 'Graduate', serif; 
+        font-family: 'Cinzel Decorative', serif; 
         color: #362706;
-        font-size: 1rem;
-        letter-spacing: 2px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 1px;
         text-transform: uppercase;
         opacity: 0.9;
     }
@@ -255,7 +256,7 @@ if image_source is not None:
         
         <div class="result-card">
             <p style="margin:0; font-family: 'Poppins', sans-serif; font-size: 0.9rem; letter-spacing: 2px; opacity: 0.9;">{status_text}</p>
-            <h2 style="margin: 10px 0; font-family: 'Graduate', serif; font-size: 3rem; font-weight: 400;">
+            <h2 style="margin: 10px 0; font-family: 'Cinzel Decorative', serif; font-size: 3rem; font-weight: 700;">
                 ✨ {class_name[2:].strip().upper()} ✨
             </h2>
             <div style="background: rgba(249, 245, 240, 0.2); padding: 5px 20px; border-radius: 15px; display: inline-block;">
@@ -266,7 +267,7 @@ if image_source is not None:
         </div>
     """, unsafe_allow_html=True)
 
-# --- 8. FOOTER CREDIT (REQUESTED) ---
+# --- 8. FOOTER CREDIT ---
 st.markdown("""
     <div class="footer">
         THIS WEBSITE CREATED BY AQILAH, AINA, AINUR, SYASYA
