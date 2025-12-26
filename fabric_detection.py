@@ -42,10 +42,10 @@ try:
 except:
     st.warning("⚠️ Background image not found. Please ensure 'background.jpg' is in GitHub.")
 
-# --- 3. CSS LUXURY THEME (CINZEL DECORATIVE FONT) ---
+# --- 3. CSS LUXURY THEME (CINZEL FONT + BEIGE OUTLINE) ---
 st.markdown("""
     <style>
-    /* IMPORT FONTS: Tukar kepada Cinzel Decorative (Classy luxury look) */
+    /* IMPORT FONTS */
     @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Poppins:wght@400;600;800&display=swap');
 
     /* MAIN CONTAINER */
@@ -57,20 +57,23 @@ st.markdown("""
         border: 3px solid #362706; /* BROWN */
     }
 
-    /* 1. TITLE (FONT CINZEL DECORATIVE - BOLD & CLEAN) */
+    /* 1. TITLE (FIXED: SEBARIS + BEIGE OUTLINE) */
     h1 {
         font-family: 'Cinzel Decorative', serif !important; 
-        color: #043915 !important; /* GREEN */
-        font-weight: 900 !important; /* EXTRA BOLD */
+        color: #043915 !important; /* Warna isi: GREEN */
+        font-weight: 900 !important; 
         text-transform: uppercase;
         text-align: center;
-        letter-spacing: 2px;
-        font-size: 3.2rem !important; /* Saiz Besar */
+        letter-spacing: 1px;
+        font-size: 2.5rem !important; /* Kecilkan sikit biar muat sebaris */
         margin-bottom: 15px;
-        /* text-shadow DIBUANG seperti diminta supaya nampak clean */
+        /* INI CODING UNTUK OUTLINE BEIGE */
+        -webkit-text-stroke: 1.5px #FDE8CD; 
+        text-shadow: none; /* Pastikan tiada shadow lain ganggu */
+        white-space: nowrap; /* Paksa duduk sebaris */
     }
     
-    /* 2. SUBTITLE BUBBLE */
+    /* 2. SUBTITLE BUBBLE (HIJAU) */
     .subtitle-box {
         background-color: #043915; 
         color: #F9F5F0; 
@@ -136,17 +139,21 @@ st.markdown("""
         color: white !important;
     }
 
-    /* FOOTER CREDIT STYLE (Guna font Cinzel juga biar matching) */
-    .footer {
+    /* 5. NEW FOOTER BUBBLE STYLE (BEIGE BUBBLE + BROWN TEXT) */
+    .footer-box {
+        background-color: #FDE8CD; /* BEIGE background */
+        color: #362706; /* DARK BROWN text */
+        padding: 10px 40px;
+        border-radius: 50px; /* Curve shape */
+        font-family: 'Cinzel Decorative', serif;
         text-align: center;
-        margin-top: 50px;
-        font-family: 'Cinzel Decorative', serif; 
-        color: #362706;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         font-weight: 700;
         letter-spacing: 1px;
         text-transform: uppercase;
-        opacity: 0.9;
+        display: inline-block;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        border: 2px solid #362706; /* Tambah border brown sikit biar kemas */
     }
 
     /* HIDE STREAMLIT BRANDING */
@@ -267,9 +274,11 @@ if image_source is not None:
         </div>
     """, unsafe_allow_html=True)
 
-# --- 8. FOOTER CREDIT ---
+# --- 8. FOOTER CREDIT (NEW BEIGE BUBBLE) ---
 st.markdown("""
-    <div class="footer">
-        THIS WEBSITE CREATED BY AQILAH, AINA, AINUR, SYASYA
+    <div class="center-box" style="margin-top: 50px; margin-bottom: 30px;">
+        <div class="footer-box">
+            THIS WEBSITE CREATED BY AQILAH, AINA, AINUR, SYASYA
+        </div>
     </div>
 """, unsafe_allow_html=True)
