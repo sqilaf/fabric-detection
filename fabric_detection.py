@@ -42,10 +42,10 @@ try:
 except:
     st.warning("⚠️ Background image not found. Please ensure 'background.jpg' is in GitHub.")
 
-# --- 3. CSS LUXURY THEME (BACK TO VARSITY FONT + HEAVY STROKE) ---
+# --- 3. CSS LUXURY THEME (CLEAN VARSITY STYLE) ---
 st.markdown("""
     <style>
-    /* IMPORT FONTS: Balik pada 'Graduate' (Ala Freshman) & Poppins */
+    /* IMPORT FONTS: Graduate (Varsity) & Poppins */
     @import url('https://fonts.googleapis.com/css2?family=Graduate&family=Poppins:wght@400;600;800&display=swap');
 
     /* MAIN CONTAINER */
@@ -57,20 +57,19 @@ st.markdown("""
         border: 3px solid #362706; /* BROWN */
     }
 
-    /* 1. TITLE (FONT GRADUATE DENGAN OUTLINE TEBAL BIAR NAMPAK BOLD) */
+    /* 1. TITLE (CLEAN VARSITY - NO OUTLINE) */
     h1 {
         font-family: 'Graduate', serif !important; 
-        color: #043915 !important; /* Warna isi: GREEN */
-        font-weight: 900 !important; /* Paling tebal */
+        color: #043915 !important; /* Warna Hijau Gelap (#043915) */
+        font-weight: 900 !important; /* BOLD */
         text-transform: uppercase;
-        text-align: center;
-        letter-spacing: 3px; /* Jarakkan sikit sebab outline tebal */
-        font-size: 3rem !important;
-        margin-bottom: 15px;
-        /* RAHSIA BOLD: Tambah outline tebal warna Brown */
-        -webkit-text-stroke: 2px #362706; 
-        text-shadow: none;
-        white-space: nowrap; 
+        text-align: center !important; /* Paksa Center */
+        letter-spacing: 2px;
+        font-size: 3.5rem !important; /* Saiz Besar */
+        margin-bottom: 20px;
+        line-height: 1.2; /* Jarak antara baris kalau dia turun bawah */
+        text-shadow: none !important; /* Pastikan tiada shadow */
+        -webkit-text-stroke: 0px !important; /* Buang outline */
     }
     
     /* 2. SUBTITLE BUBBLE (HIJAU) */
@@ -139,15 +138,15 @@ st.markdown("""
         color: white !important;
     }
 
-    /* 5. FOOTER BUBBLE (Guna font Graduate juga biar sekata) */
+    /* 5. FOOTER BUBBLE */
     .footer-box {
         background-color: #FDE8CD; /* BEIGE background */
         color: #362706; /* DARK BROWN text */
         padding: 10px 40px;
-        border-radius: 50px; /* Curve shape */
-        font-family: 'Graduate', serif; /* FONT VARSITY */
+        border-radius: 50px; 
+        font-family: 'Graduate', serif; 
         text-align: center;
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         font-weight: 900;
         letter-spacing: 2px;
         text-transform: uppercase;
@@ -164,9 +163,10 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # --- 4. HEADER & SUBTITLE ---
-st.markdown("<h1>🧵 AI FABRIC DETECTION STUDIO 🧵</h1>", unsafe_allow_html=True)
+st.markdown("<h1>AI FABRIC DETECTION STUDIO</h1>", unsafe_allow_html=True)
 st.markdown("""
     <div class="center-box">
+        <p style="font-size: 2rem; margin-top: -20px;">🧵</p>
         <div class="subtitle-box">
             Identify your fabric type: Cotton, Denim, Silk, or Polyester ✨
         </div>
