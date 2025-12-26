@@ -42,10 +42,10 @@ try:
 except:
     st.warning("⚠️ Background image not found. Please ensure 'background.jpg' is in GitHub.")
 
-# --- 3. CSS LUXURY THEME (CLEAN VARSITY STYLE) ---
+# --- 3. CSS LUXURY THEME (EXTRA BOLD VARSITY) ---
 st.markdown("""
     <style>
-    /* IMPORT FONTS: Graduate (Varsity) & Poppins */
+    /* IMPORT FONTS */
     @import url('https://fonts.googleapis.com/css2?family=Graduate&family=Poppins:wght@400;600;800&display=swap');
 
     /* MAIN CONTAINER */
@@ -57,22 +57,25 @@ st.markdown("""
         border: 3px solid #362706; /* BROWN */
     }
 
-    /* 1. TITLE (CLEAN VARSITY - NO OUTLINE) */
+    /* 1. TITLE (THE "FAKE BOLD" TRICK) */
     h1 {
         font-family: 'Graduate', serif !important; 
-        color: #043915 !important; /* Warna Hijau Gelap (#043915) */
-        font-weight: 900 !important; /* BOLD */
+        color: #043915 !important; /* Warna Hijau Gelap */
+        font-weight: 900 !important; 
         text-transform: uppercase;
-        text-align: center !important; /* Paksa Center */
+        text-align: center !important; 
         letter-spacing: 2px;
-        font-size: 3.5rem !important; /* Saiz Besar */
+        font-size: 3.5rem !important; 
         margin-bottom: 20px;
-        line-height: 1.2; /* Jarak antara baris kalau dia turun bawah */
-        text-shadow: none !important; /* Pastikan tiada shadow */
-        -webkit-text-stroke: 0px !important; /* Buang outline */
+        line-height: 1.2;
+        text-shadow: none !important;
+        
+        /* RAHSIA GEMUKKAN TULISAN: */
+        /* Kita letak outline tebal (2.5px) warna SAMA dengan tulisan */
+        -webkit-text-stroke: 2.5px #043915; 
     }
     
-    /* 2. SUBTITLE BUBBLE (HIJAU) */
+    /* 2. SUBTITLE BUBBLE */
     .subtitle-box {
         background-color: #043915; 
         color: #F9F5F0; 
@@ -140,8 +143,8 @@ st.markdown("""
 
     /* 5. FOOTER BUBBLE */
     .footer-box {
-        background-color: #FDE8CD; /* BEIGE background */
-        color: #362706; /* DARK BROWN text */
+        background-color: #FDE8CD; 
+        color: #362706; 
         padding: 10px 40px;
         border-radius: 50px; 
         font-family: 'Graduate', serif; 
@@ -153,6 +156,8 @@ st.markdown("""
         display: inline-block;
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         border: 2px solid #362706;
+        /* Footer pun kita tebalkan sikit tapi nipis je outline dia */
+        -webkit-text-stroke: 0.5px #362706;
     }
 
     /* HIDE STREAMLIT BRANDING */
@@ -180,105 +185,4 @@ def load_my_model():
         def __init__(self, **kwargs):
             kwargs.pop('groups', None)
             super().__init__(**kwargs)
-    with custom_object_scope({'DepthwiseConv2D': CustomDepthwiseConv2D}):
-        model = load_model("keras_model.h5", compile=False)
-    return model
-
-try:
-    model = load_my_model()
-    class_names = open("labels.txt", "r").readlines()
-except Exception as e:
-    st.error(f"Error loading model: {e}")
-
-# --- 6. TABS ---
-tab1, tab2 = st.tabs(["📁 Upload Image", "📸 Use Camera"])
-image_source = None
-
-with tab1:
-    uploaded_file = st.file_uploader("Upload an image file (JPG/PNG)", type=["jpg", "png", "jpeg"], key="upload")
-    if uploaded_file is not None:
-        image_source = uploaded_file
-
-with tab2:
-    camera_file = st.camera_input("Take a picture of the fabric", key="camera")
-    if camera_file is not None:
-        image_source = camera_file
-
-# --- 7. PROCESSING & RESULT ---
-if image_source is not None:
-    image = Image.open(image_source).convert("RGB")
-    
-    st.markdown("---")
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        st.image(image, caption="Uploaded Image", use_container_width=True)
-
-    size = (224, 224)
-    image = ImageOps.fit(image, size, Image.Resampling.LANCZOS)
-    image_array = np.asarray(image)
-    normalized_image_array = (image_array.astype(np.float32) / 127.5) - 1
-    data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
-    data[0] = normalized_image_array
-
-    prediction = model.predict(data)
-    index = np.argmax(prediction)
-    class_name = class_names[index]
-    confidence_score = prediction[0][index]
-    
-    # --- DYNAMIC COLOR LOGIC ---
-    percentage = confidence_score * 100
-    
-    if percentage >= 80:
-        box_color = "#043915" # GREEN
-        border_color = "#043915"
-        status_text = "HIGH CONFIDENCE"
-    elif percentage >= 50:
-        box_color = "#F4991A" # ORANGE
-        border_color = "#362706"
-        status_text = "MEDIUM CONFIDENCE"
-    else:
-        box_color = "#CF0F0F" # RED
-        border_color = "#CF0F0F"
-        status_text = "LOW CONFIDENCE"
-
-    # RESULT CARD
-    st.markdown(f"""
-        <style>
-        .result-card {{
-            background-color: {box_color};
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            color: #F9F5F0;
-            margin-top: 20px;
-            border: 3px solid {border_color};
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            animation: fadeIn 1s;
-        }}
-        @keyframes fadeIn {{
-            from {{opacity: 0; transform: translateY(20px);}}
-            to {{opacity: 1; transform: translateY(0);}}
-        }}
-        </style>
-        
-        <div class="result-card">
-            <p style="margin:0; font-family: 'Poppins', sans-serif; font-size: 0.9rem; letter-spacing: 2px; opacity: 0.9;">{status_text}</p>
-            <h2 style="margin: 10px 0; font-family: 'Graduate', serif; font-size: 3rem; font-weight: 900; letter-spacing: 3px;">
-                ✨ {class_name[2:].strip().upper()} ✨
-            </h2>
-            <div style="background: rgba(249, 245, 240, 0.2); padding: 5px 20px; border-radius: 15px; display: inline-block;">
-                <p style="margin:0; font-weight: bold; font-family: 'Poppins', sans-serif; color: #F9F5F0;">
-                    Accuracy Score: {percentage:.2f}%
-                </p>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
-
-# --- 8. FOOTER CREDIT (BEIGE BUBBLE) ---
-st.markdown("""
-    <div class="center-box" style="margin-top: 50px; margin-bottom: 30px;">
-        <div class="footer-box">
-            THIS WEBSITE CREATED BY AQILAH, AINA, AINUR, SYASYA
-        </div>
-    </div>
-""", unsafe_allow_html=True)
+    with custom
