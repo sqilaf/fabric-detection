@@ -173,7 +173,7 @@ st.markdown("""
     <div class="center-box">
         <p style="font-size: 2rem; margin-top: -20px;">🧵</p>
         <div class="subtitle-box">
-            Identify your fabric type: Cotton, Denim, Silk, or Polyester ✨
+            Identify your fabric type: Cotton, Denim, Silk, or Wool ✨
         </div>
     </div>
 """, unsafe_allow_html=True)
