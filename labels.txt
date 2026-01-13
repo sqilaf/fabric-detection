@@ -1,4 +1,0 @@
-0 cotton
-1 denim
-2 silk
-3 wool
